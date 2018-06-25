@@ -2,7 +2,7 @@
 
 Run the following files in order to provide useful statistics to Paradigm4 customer solutions team.
 
-1. `debug.sh` 
+## 1. `debug.sh` 
 
 Collects config file parameters, hardware configuration etc.
 
@@ -15,7 +15,7 @@ sudo su - # change to root user
 bash debug.sh > /tmp/debug.log 2>&1
 ```
 
-2. `debug.R`
+## 2. `debug.R`
 
 This script collects basic query timing, and summary statistics about gene-expression and feature array.
 
