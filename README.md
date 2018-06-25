@@ -2,7 +2,7 @@
 
 Run the following files in order to provide useful statistics to Paradigm4 customer solutions team.
 
-## 1. On the scidb server
+## 1. `debug.sh` (on the scidb server)
 
 Run on the scidb server:
 
@@ -14,7 +14,7 @@ sudo su - # change to root user
 bash debug.sh > /tmp/debug.log 2>&1
 ```
 
-## 2. On the client machine
+## 2. `debug.R` (on the client machine)
 
 First make sure the file runs via RStudio -- you will need to change the following user parameters within the R file
 
