@@ -3,10 +3,20 @@
 #' gene-expression download
 #############################
 rm(list=ls())
-library(scidb)
-library(dplyr)
+library(scidb4gh)
 options(scidb.debug = FALSE)
-db = scidbconnect()
+
+#### USER SPECIFIC PARAMETERS #######
+host = 'localhost'
+dataset_id = 1
+measurementset_id = 1
+gene_symbol = 'IGLC4'
+#-----------------------------------#
+
+################################ PART 1 ############################################################
+cat("************************** PART 1 **************************\n")
+gh_connect(host = host, port = 8080)
+db = scidbconnect(host = host)
 
 #' Time a simple build query
 cat("=========\n")
@@ -92,5 +102,40 @@ print(rf3)
 
 #' Now save the workspace
 cat("=========\n")
-cat("Saving workspace\n")
-save(list = ls(), file = '/tmp/array_stats.Rda')
+cat("Saving workspace to file: /tmp/array_stats.Rda\n")
+save(list = ls(), file = '/tmp/debug_array_stats.Rda')
+
+
+################################ PART 2 ############################################################
+
+cat("************************** PART 2 **************************\n")
+ms = get_measurementsets(measurementset_id = measurementset_id)
+ftr = search_features(gene_symbol = gene_symbol)
+biosample_ref = search_biosamples(dataset_id = dataset_id)
+
+# Currently, there are two ways to download gene-expression data from the API
+# (Eventually, these will be merged together so that there is only one interface)
+options(scidb.debug = T)
+cat("=====\n")
+cat("Optimal path for gene-expression download across all samples\n")
+print(system.time({
+  # Optimized data-access method when one wants to get data for a set of features
+  # but across all samples
+  es = dao_search_rnaquantification(measurementset = ms, 
+                                    feature = ftr, 
+                                    biosample_ref = biosample_ref,
+                                    con = scidb4gh:::use_ghEnv_if_null(con = NULL))
+}))
+print(object.size(es))
+
+cat("=====\n")
+cat("More generic gene-expression download path -- allows download without formation of ExpressionSet\n")
+print(system.time({
+  # More generic function that allows slicing by biosample / feature / both
+  # -- allows download without formation of ExpressionSet
+  es2 = search_rnaquantification(measurementset = ms, 
+                                 feature = ftr, formExpressionSet = FALSE)
+}))
+cat("Object size of es2 (bytes):", object.size(es2), "\n")
+cat("Dimensions:")
+print(dim(es2))
