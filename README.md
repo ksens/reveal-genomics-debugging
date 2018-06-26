@@ -20,7 +20,7 @@ First make sure the file runs via RStudio -- you will need to change the followi
 
 ```R
 host = 'localhost'
-measurementset_id = 1 # the measuremntset_id (pipeline id) for which download is slow
+measurementset_id = 1 # the measurementset_id (pipeline id) for which download is slow
 gene_symbol = 'IGLC4' # replace by any gene of interest e.g. 'EGFR', 'KRAS' etc.
 ```
 
