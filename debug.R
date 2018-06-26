@@ -8,7 +8,6 @@ options(scidb.debug = FALSE)
 
 #### USER SPECIFIC PARAMETERS #######
 host = 'localhost'
-dataset_id = 1
 measurementset_id = 1
 gene_symbol = 'IGLC4'
 #-----------------------------------#
@@ -110,6 +109,8 @@ save(list = ls(), file = '/tmp/debug_array_stats.Rda')
 
 cat("************************** PART 2 **************************\n")
 ms = get_measurementsets(measurementset_id = measurementset_id)
+stopifnot(nrow(ms) == 1)
+dataset_id = ms$dataset_id
 ftr = search_features(gene_symbol = gene_symbol)
 biosample_ref = search_biosamples(dataset_id = dataset_id)
 
