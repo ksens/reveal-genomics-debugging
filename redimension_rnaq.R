@@ -46,8 +46,9 @@ reconfigure_rnaq(suffix = "_v2",
 cat("Time to reconfigure array\n")
 print(proc.time() - t1)
 
-cat("Try new configuration parameters for gene-expression array\n")
-iquery(db, "rename(RNAQUANTIFICATION, RNAQUANTIFICATION_bak)")
-iquery(db, "rename(RNAQUANTIFICATION_v2, RNAQUANTIFICATION)")
+# to be run during Webex
+# cat("Try new configuration parameters for gene-expression array\n")
+# iquery(db, "rename(RNAQUANTIFICATION, RNAQUANTIFICATION_bak)")
+# iquery(db, "rename(RNAQUANTIFICATION_v2, RNAQUANTIFICATION)")
 
 # Now try your UI, and note if the gene-expression download timings have improved
