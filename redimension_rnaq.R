@@ -35,26 +35,18 @@ reconfigure_rnaq = function(suffix, schema) {
   }
 }
 
+t1 = proc.time()
 reconfigure_rnaq(suffix = "_v2",
                  schema = "<value:float COMPRESSION 'zlib'> 
                  [dataset_version=0:*:0:1;  
                  dataset_id=0:*:0:1; 
                  measurementset_id=0:*:0:1;
-                 biosample_id=0:*:0:1000; 
-                 feature_id=0:*:0:1000]")
-
-reconfigure_rnaq(suffix = "_v3",
-                 schema = "<value:float COMPRESSION 'zlib'> 
-                 [dataset_version=0:*:0:1;  
-                 dataset_id=0:*:0:1; 
-                 measurementset_id=0:*:0:1;
                  biosample_id=0:*:0:128; 
-                 feature_id=0:*:0:32768]")
+                 feature_id=0:*:0:16384]")
+proc.time() - t1
 
-reconfigure_rnaq(suffix = "_v4",
-                 schema = "<value:float COMPRESSION 'zlib'> 
-                 [dataset_version=0:*:0:1;  
-                 dataset_id=0:*:0:1; 
-                 measurementset_id=0:*:0:1;
-                 biosample_id=0:*:0:32768; 
-                 feature_id=0:*:0:128]")
+cat("Try new configuration parameters for gene-expression array\n")
+iquery(db, "rename(RNAQUANTIFICATION, RNAQUANTIFICATION_bak)")
+iquery(db, "rename(RNAQUANTIFICATION_v2, RNAQUANTIFICATION)")
+
+# Now try your UI, and note if the gene-expression download timings have improved
