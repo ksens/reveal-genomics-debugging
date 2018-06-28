@@ -8,8 +8,8 @@ options(scidb.debug = FALSE)
 
 #### USER SPECIFIC PARAMETERS #######
 host = 'localhost'
-measurementset_id = 1
-gene_symbol = 'IGLC4'
+measurementset_id = 1 # the measurementset_id (pipeline id) for which download is slow
+gene_symbol = 'IGLC4' # replace by any gene of interest e.g. 'EGFR', 'KRAS' etc.
 #-----------------------------------#
 
 ################################ PART 1 ############################################################
