@@ -43,7 +43,8 @@ reconfigure_rnaq(suffix = "_v2",
                  measurementset_id=0:*:0:1;
                  biosample_id=0:*:0:128; 
                  feature_id=0:*:0:16384]")
-proc.time() - t1
+cat("Time to reconfigure array\n")
+print(proc.time() - t1)
 
 cat("Try new configuration parameters for gene-expression array\n")
 iquery(db, "rename(RNAQUANTIFICATION, RNAQUANTIFICATION_bak)")
