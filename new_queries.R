@@ -45,7 +45,7 @@ feature_subquery = paste0("gene_symbol='", gene_symbol, "'", collapse = " OR ")
 # then
 selection_q = paste0(
   "cross_join(", rnaq_arr, " as X, ",
-  "filter(", ftr_arr, ", ", feature_subquery, ") as Y, ",
+  "project(filter(", ftr_arr, ", ", feature_subquery, "), name) as Y, ",
   "X.feature_id, Y.feature_id)")
 limit_q = paste0("limit(", selection_q, ",", N, ")")
 
